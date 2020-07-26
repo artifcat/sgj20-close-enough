@@ -7,7 +7,9 @@ public class Flying : MonoBehaviour
     public float velocity = 1;
     public Animator animator;
     [SerializeField]
-    private IcarusState state;
+    private IcarusState icarusState;
+    [SerializeField]
+    private GameState gameState;
     private Rigidbody rb;
 
     void Start()
@@ -17,13 +19,17 @@ public class Flying : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(gameState.IsPlaying)
         {
-            if(state.hasWings)
+            rb.isKinematic = false;
+            if (Input.GetButtonDown("Jump"))
             {
-                rb.velocity = Vector3.up * velocity;
+                if(icarusState.hasWings)
+                {
+                    rb.velocity = Vector3.up * velocity;
+                }
+                animator.SetTrigger("flap");
             }
-            animator.SetTrigger("flap");
         }
     }
 }

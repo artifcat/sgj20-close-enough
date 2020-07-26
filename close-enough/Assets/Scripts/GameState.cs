@@ -12,10 +12,12 @@ public class GameState : ScriptableObject
 
     public float Score { get {return score;} }
     public bool IsGameOver { get {return isGameOver;} }
+    public bool IsPlaying { get {return isPlaying;} }
     public UnityEvent OnGameOver = new UnityEvent();
 
     private float score;
     private bool isGameOver;
+    private bool isPlaying;
 
     // run in Update()
     public void UpdateScore()
@@ -30,6 +32,7 @@ public class GameState : ScriptableObject
     {
         isGameOver = true;
         OnGameOver.Invoke();
+        isPlaying = false;
     }
 
     public void ResetGameState()
@@ -41,6 +44,11 @@ public class GameState : ScriptableObject
     public void ResetGame()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void StartGame()
+    {
+        isPlaying = true;
     }
 
 }

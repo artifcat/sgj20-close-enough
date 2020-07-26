@@ -7,7 +7,7 @@ public class GameStateManager : MonoBehaviour
 {
     [SerializeField]
     private GameState state;
-    private AudioSource AudioSource;
+    //private AudioSource AudioSource;
     [SerializeField]
     private GameObject GameOverScreen;
 
@@ -15,18 +15,22 @@ public class GameStateManager : MonoBehaviour
     {
         state.ResetGameState();
         state.OnGameOver.AddListener(OnGameOver);
-        AudioSource = GetComponent<AudioSource>();
-        AudioSource.Play();
+        //AudioSource = GetComponent<AudioSource>();
+        //AudioSource.Play();
     }
 
     void Update()
     {
         state.UpdateScore();
+        if(!state.IsPlaying && Input.GetButtonDown("Jump"))
+        {
+            state.StartGame();
+        }
     }
 
     void OnGameOver()
     {
-        AudioSource.Stop();
+        //AudioSource.Stop();
         GameOverScreen.SetActive(true);
     }
 }
