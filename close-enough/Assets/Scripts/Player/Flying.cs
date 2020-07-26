@@ -6,21 +6,24 @@ public class Flying : MonoBehaviour
 {
     public float velocity = 1;
     public Animator animator;
+    [SerializeField]
+    private IcarusState state;
     private Rigidbody rb;
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = Vector3.up * velocity;
+            if(state.hasWings)
+            {
+                rb.velocity = Vector3.up * velocity;
+            }
             animator.SetTrigger("flap");
         }
-        
     }
 }
