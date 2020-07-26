@@ -12,6 +12,8 @@ public class WingConditionManager : MonoBehaviour
     [SerializeField]
     private ParticleSystem smokeFX;
     [SerializeField]
+    private ParticleSystem fireFX;
+    [SerializeField]
     private AudioSource scream;
 
     private bool wingLossTriggered;
@@ -22,13 +24,28 @@ public class WingConditionManager : MonoBehaviour
         state.ResetDurability();
         wingLossTriggered = false;
     }
-    
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("sun"))
+        {
+            if (fireFX.isPlaying)
+            {
+                fireFX.Stop();
+            }
+        }
+    }
+
     private void OnTriggerStay(Collider other) {
-        if(other.CompareTag("sun"))
+        if (other.CompareTag("sun"))
         {
             var distance = Vector3.Distance(other.transform.position, this.transform.position);
-            state.DamageWings(damageMultiplier/distance);
-            if(!state.hasWings && !wingLossTriggered)
+            state.DamageWings(damageMultiplier / distance);
+            if (state.hasWings)
+            {
+                fireFX.Play();
+            }
+            if (!state.hasWings && !wingLossTriggered)
             {
                 wingLossTriggered = true;
                 scream.Play();

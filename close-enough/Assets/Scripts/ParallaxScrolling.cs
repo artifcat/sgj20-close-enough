@@ -23,8 +23,8 @@ public class ParallaxScrolling : MonoBehaviour
     {
         if (transform.position.x < -groundHorizontalLength)
         {
-            Vector3 offset = new Vector3(groundHorizontalLength * 2f, 0, 0);
-            transform.position = transform.position + offset;
+            Vector2 offset = new Vector2(groundHorizontalLength * 2f, 0);
+            transform.position = (Vector2)transform.position + offset;
         }
     }
 }

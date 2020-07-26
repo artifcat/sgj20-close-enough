@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "GameState", menuName = "close-enough/GameState", order = 0)]
 public class GameState : ScriptableObject
@@ -31,10 +32,15 @@ public class GameState : ScriptableObject
         OnGameOver.Invoke();
     }
 
-    public void ResetGame()
+    public void ResetGameState()
     {
         isGameOver = false;
         score = 0f;
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }

@@ -7,11 +7,16 @@ public class GameStateManager : MonoBehaviour
 {
     [SerializeField]
     private GameState state;
+    private AudioSource AudioSource;
+    [SerializeField]
+    private GameObject GameOverScreen;
 
     void Start()
     {
-        state.ResetGame();
+        state.ResetGameState();
         state.OnGameOver.AddListener(OnGameOver);
+        AudioSource = GetComponent<AudioSource>();
+        AudioSource.Play();
     }
 
     void Update()
@@ -21,6 +26,7 @@ public class GameStateManager : MonoBehaviour
 
     void OnGameOver()
     {
-        Debug.Log("The game is over, reset it here.");
+        AudioSource.Stop();
+        GameOverScreen.SetActive(true);
     }
 }
